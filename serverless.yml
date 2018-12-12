@@ -1,0 +1,24 @@
+service: nine-challenge
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: ap-southeast-2
+
+functions:
+  hello:
+    handler: src/handler.filterHandler
+    events:
+      - http:
+          path: /
+          method: post
