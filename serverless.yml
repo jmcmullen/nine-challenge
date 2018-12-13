@@ -22,8 +22,14 @@ provider:
 
 functions:
   filter:
-    handler: src/handler.filterHandler
+    handler: src/filter/handler.filterHandler
     events:
       - http:
           path: /
           method: post
+  hello:
+    handler: src/hello/handler.helloHandler
+    events:
+      - http:
+          path: /
+          method: get
