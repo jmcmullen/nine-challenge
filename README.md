@@ -1,131 +1,341 @@
-# Serverless Node.js Starter
+# Nine.com.au Coding Challenge
 
-A Serverless starter that adds ES7 syntax, serverless-offline, environment variables, and unit test support. Part of the [Serverless Stack](http://serverless-stack.com) guide.
+A micro-service written in Node.js using serverless & lambda.
 
-[Serverless Node.js Starter](https://github.com/AnomalyInnovations/serverless-nodejs-starter) uses the [serverless-webpack](https://github.com/serverless-heaven/serverless-webpack) plugin, [Babel](https://babeljs.io), [serverless-offline](https://github.com/dherault/serverless-offline), and [Jest](https://facebook.github.io/jest/). It supports:
-
-- **ES7 syntax in your handler functions**
-  - Use `import` and `export`
-- **Package your functions using Webpack**
-- **Run API Gateway locally**
-  - Use `serverless offline start`
-- **Support for unit tests**
-  - Run `npm test` to run your tests
-- **Sourcemaps for proper error messages**
-  - Error message show the correct line numbers
-  - Works in production with CloudWatch
-- **Automatic support for multiple handler files**
-  - No need to add a new entry to your `webpack.config.js`
-- **Add environment variables for your stages**
+You can access a demo here: [`https://9.jays.works`](https://9.jays.works)
 
 ---
 
-### Demo
-
-A demo version of this service is hosted on AWS - [`https://z6pv80ao4l.execute-api.us-east-1.amazonaws.com/dev/hello`](https://z6pv80ao4l.execute-api.us-east-1.amazonaws.com/dev/hello)
-
-And here is the ES7 source behind it
-
-``` javascript
-export const hello = async (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: `Go Serverless v1.0! ${(await message({ time: 1, copy: 'Your function executed successfully!'}))}`,
-      input: event,
-    }),
-  };
-
-  callback(null, response);
-};
-
-const message = ({ time, ...rest }) => new Promise((resolve, reject) => 
-  setTimeout(() => {
-    resolve(`${rest.copy} (with a delay)`);
-  }, time * 1000)
-);
-```
-
 ### Requirements
 
+- [Install Node Version Manager](https://github.com/creationix/nvm)
 - [Install the Serverless Framework](https://serverless.com/framework/docs/providers/aws/guide/installation/)
 - [Configure your AWS CLI](https://serverless.com/framework/docs/providers/aws/guide/credentials/)
 
 ### Installation
 
-To create a new Serverless project.
+```bash
+# install & use node 6.10.3
+nvm install && nvm run
 
-``` bash
-$ serverless install --url https://github.com/AnomalyInnovations/serverless-nodejs-starter --name my-project
-```
+# install dependencies
+npm install
 
-Enter the new directory
+# Run local lambda http environment
+npm run dev
 
-``` bash
-$ cd my-project
-```
+# Run tests
+npm run test
 
-Install the Node.js packages
-
-``` bash
-$ npm install
+# Deploy
+npm deploy
 ```
 
 ### Usage
 
-To run unit tests on your local
+Filter shows that have DRM enabled and at least 1 eposode.
 
-``` bash
-$ npm test
+Method: `POST`
+
+```bash
+https://9.jays.works/
 ```
 
-To run a function on your local
+Example request:
 
-``` bash
-$ serverless invoke local --function hello
+```json
+{
+  "payload": [
+    {
+      "country": "UK",
+      "description": "What's life like when you have enough children to field your own football team?",
+      "drm": true,
+      "episodeCount": 3,
+      "genre": "Reality",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/16KidsandCounting1280.jpg"
+      },
+      "language": "English",
+      "nextEpisode": null,
+      "primaryColour": "#ff7800",
+      "seasons": [
+        {
+          "slug": "show/16kidsandcounting/season/1"
+        }
+      ],
+      "slug": "show/16kidsandcounting",
+      "title": "16 Kids and Counting",
+      "tvChannel": "GEM"
+    },
+    {
+      "slug": "show/seapatrol",
+      "title": "Sea Patrol",
+      "tvChannel": "Channel 9"
+    },
+    {
+      "country": " USA",
+      "description": "The Taste puts 16 culinary competitors in the kitchen, where four of the World's most notable culinary masters of the food world judges their creations based on a blind taste. Join judges Anthony Bourdain, Nigella Lawson, Ludovic Lefebvre and Brian Malarkey in this pressure-packed contest where a single spoonful can catapult a contender to the top or send them packing.",
+      "drm": true,
+      "episodeCount": 2,
+      "genre": "Reality",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/TheTaste1280.jpg"
+      },
+      "language": "English",
+      "nextEpisode": {
+        "channel": null,
+        "channelLogo": "http://mybeautifulcatchupservice.com/img/player/logo_go.gif",
+        "date": null,
+        "html": "<br><span class=\"visit\">Visit the Official Website</span></span>",
+        "url": "http://go.ninemsn.com.au/"
+      },
+      "primaryColour": "#df0000",
+      "seasons": [
+        {
+          "slug": "show/thetaste/season/1"
+        }
+      ],
+      "slug": "show/thetaste",
+      "title": "The Taste",
+      "tvChannel": "GEM"
+    },
+    {
+      "country": "UK",
+      "description": "The series follows the adventures of International Rescue, an organisation created to help those in grave danger using technically advanced equipment and machinery. The series focuses on the head of the organisation, ex-astronaut Jeff Tracy, and his five sons who piloted the \"Thunderbird\" machines.",
+      "drm": true,
+      "episodeCount": 24,
+      "genre": "Action",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/Thunderbirds_1280.jpg"
+      },
+      "language": "English",
+      "nextEpisode": null,
+      "primaryColour": "#0084da",
+      "seasons": [
+        {
+          "slug": "show/thunderbirds/season/1"
+        },
+        {
+          "slug": "show/thunderbirds/season/3"
+        },
+        {
+          "slug": "show/thunderbirds/season/4"
+        },
+        {
+          "slug": "show/thunderbirds/season/5"
+        },
+        {
+          "slug": "show/thunderbirds/season/6"
+        },
+        {
+          "slug": "show/thunderbirds/season/8"
+        }
+      ],
+      "slug": "show/thunderbirds",
+      "title": "Thunderbirds",
+      "tvChannel": "Channel 9"
+    },
+    {
+      "country": "USA",
+      "description": "A sleepy little village, Crystal Cove boasts a long history of ghost sightings, poltergeists, demon possessions, phantoms and other paranormal occurrences. The renowned sleuthing team of Fred, Daphne, Velma, Shaggy and Scooby-Doo prove all of this simply isn't real, and along the way, uncover a larger, season-long mystery that will change everything.",
+      "drm": true,
+      "episodeCount": 4,
+      "genre": "Kids",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/ScoobyDoo1280.jpg"
+      },
+      "language": "English",
+      "nextEpisode": null,
+      "primaryColour": "#1b9e00",
+      "seasons": [
+        {
+          "slug": "show/scoobydoomysteryincorporated/season/1"
+        }
+      ],
+      "slug": "show/scoobydoomysteryincorporated",
+      "title": "Scooby-Doo! Mystery Incorporated",
+      "tvChannel": "GO!"
+    },
+    {
+      "country": "USA",
+      "description": "Toy Hunter follows toy and collectibles expert and dealer Jordan Hembrough as he scours the U.S. for hidden treasures to sell to buyers around the world. In each episode, he travels from city to city, strategically manoeuvring around reluctant sellers, abating budgets, and avoiding unforeseen roadblocks.",
+      "drm": true,
+      "episodeCount": 2,
+      "genre": "Reality",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/ToyHunter1280.jpg"
+      },
+      "language": "English",
+      "nextEpisode": null,
+      "primaryColour": "#0084da",
+      "seasons": [
+        {
+          "slug": "show/toyhunter/season/1"
+        }
+      ],
+      "slug": "show/toyhunter",
+      "title": "Toy Hunter",
+      "tvChannel": "GO!"
+    },
+    {
+      "country": "AUS",
+      "description": "A series of documentary specials featuring some of the world's most frightening moments, greatest daredevils and craziest weddings.",
+      "drm": true,
+      "episodeCount": 1,
+      "genre": "Documentary",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/Worlds1280.jpg"
+      },
+      "language": "English",
+      "nextEpisode": null,
+      "primaryColour": "#ff7800",
+      "seasons": [
+        {
+          "slug": "show/worlds/season/1"
+        }
+      ],
+      "slug": "show/worlds",
+      "title": "World's...",
+      "tvChannel": "Channel 9"
+    },
+    {
+      "country": "USA",
+      "description": "Another year of bachelorhood brought many new adventures for roommates Walden Schmidt and Alan Harper. After his girlfriend turned down his marriage proposal, Walden was thrown back into the dating world in a serious way. The guys may have thought things were going to slow down once Jake got transferred to Japan, but they're about to be proven wrong when a niece of Alan's, who shares more than a few characteristics with her father, shows up at the beach house.",
+      "drm": true,
+      "episodeCount": 0,
+      "genre": "Comedy",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/TwoandahHalfMen_V2.jpg"
+      },
+      "language": "English",
+      "nextEpisode": {
+        "channel": null,
+        "channelLogo": "http://mybeautifulcatchupservice.com/img/player/Ch9_new_logo.gif",
+        "date": null,
+        "html": "Next episode airs: <span> 10:00pm Monday on<br><span class=\"visit\">Visit the Official Website</span></span>",
+        "url": "http://channelnine.ninemsn.com.au/twoandahalfmen/"
+      },
+      "primaryColour": "#ff7800",
+      "seasons": null,
+      "slug": "show/twoandahalfmen",
+      "title": "Two and a Half Men",
+      "tvChannel": "Channel 9"
+    },
+    {
+      "country": "USA",
+      "description": "Simmering with supernatural elements and featuring familiar and fan-favourite characters from the immensely popular drama The Vampire Diaries, it's The Originals. This sexy new series centres on the Original vampire family and the dangerous vampire/werewolf hybrid, Klaus, who returns to the magical melting pot that is the French Quarter of New Orleans, a town he helped build centuries ago.",
+      "drm": true,
+      "episodeCount": 1,
+      "genre": "Action",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/TheOriginals1280.jpg"
+      },
+      "language": "English",
+      "nextEpisode": {
+        "channel": null,
+        "channelLogo": "http://mybeautifulcatchupservice.com/img/player/logo_go.gif",
+        "date": null,
+        "html": "<br><span class=\"visit\">Visit the Official Website</span></span>",
+        "url": "http://go.ninemsn.com.au/"
+      },
+      "primaryColour": "#df0000",
+      "seasons": [
+        {
+          "slug": "show/theoriginals/season/1"
+        }
+      ],
+      "slug": "show/theoriginals",
+      "title": "The Originals",
+      "tvChannel": "GO!"
+    },
+    {
+      "country": "AUS",
+      "description": "Join the most dynamic TV judging panel Australia has ever seen as they uncover the next breed of superstars every Sunday night. UK comedy royalty Dawn French, international pop superstar Geri Halliwell, (in) famous Aussie straight-talking radio jock Kyle Sandilands, and chart -topping former AGT alumni Timomatic.",
+      "drm": false,
+      "episodeCount": 0,
+      "genre": "Reality",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/AGT.jpg"
+      },
+      "language": "English",
+      "nextEpisode": {
+        "channel": null,
+        "channelLogo": "http://mybeautifulcatchupservice.com/img/player/Ch9_new_logo.gif",
+        "date": null,
+        "html": "Next episode airs:<span>6:30pm Sunday on<br><span class=\"visit\">Visit the Official Website</span></span>",
+        "url": "http://agt.ninemsn.com.au"
+      },
+      "primaryColour": "#df0000",
+      "seasons": null,
+      "slug": "show/australiasgottalent",
+      "title": "Australia's Got Talent",
+      "tvChannel": "Channel 9"
+    }
+  ],
+  "skip": 0,
+  "take": 10,
+  "totalRecords": 75
+}
 ```
 
-To simulate API Gateway locally using [serverless-offline](https://github.com/dherault/serverless-offline)
+Example response:
 
-``` bash
-$ serverless offline start
+```json
+{
+  "response": [
+    {
+      "title": "16 Kids and Counting",
+      "slug": "show/16kidsandcounting",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/16KidsandCounting1280.jpg"
+      }
+    },
+    {
+      "title": "The Taste",
+      "slug": "show/thetaste",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/TheTaste1280.jpg"
+      }
+    },
+    {
+      "title": "Thunderbirds",
+      "slug": "show/thunderbirds",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/Thunderbirds_1280.jpg"
+      }
+    },
+    {
+      "title": "Scooby-Doo! Mystery Incorporated",
+      "slug": "show/scoobydoomysteryincorporated",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/ScoobyDoo1280.jpg"
+      }
+    },
+    {
+      "title": "Toy Hunter",
+      "slug": "show/toyhunter",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/ToyHunter1280.jpg"
+      }
+    },
+    {
+      "title": "World's...",
+      "slug": "show/worlds",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/Worlds1280.jpg"
+      }
+    },
+    {
+      "title": "The Originals",
+      "slug": "show/theoriginals",
+      "image": {
+        "showImage": "http://mybeautifulcatchupservice.com/img/shows/TheOriginals1280.jpg"
+      }
+    }
+  ]
+}
 ```
 
-Run your tests
+### Credits
 
-``` bash
-$ npm test
-```
-
-We use Jest to run our tests. You can read more about setting up your tests [here](https://facebook.github.io/jest/docs/en/getting-started.html#content).
-
-Deploy your project
-
-``` bash
-$ serverless deploy
-```
-
-Deploy a single function
-
-``` bash
-$ serverless deploy function --function hello
-```
-
-To add another function as a new file to your project, simply add the new file and add the reference to `serverless.yml`. The `webpack.config.js` automatically handles functions in different files.
-
-To add environment variables to your project
-
-1. Rename `env.example` to `env.yml`.
-2. Add environment variables for the various stages to `env.yml`.
-3. Uncomment `environment: ${file(env.yml):${self:provider.stage}}` in the `serverless.yml`.
-4. Make sure to not commit your `env.yml`.
-
-### Support
-
-- Send us an [email](mailto:contact@anoma.ly) if you have any questions
-- Open a [new issue](https://github.com/AnomalyInnovations/serverless-nodejs-starter/issues/new) if you've found a bug or have some suggestions.
-- Or submit a pull request!
-
-### Maintainers
-
-Serverless Node.js Starter is maintained by Frank Wang ([@fanjiewang](https://twitter.com/fanjiewang)) & Jay V ([@jayair](https://twitter.com/jayair)). [**Subscribe to our newsletter**](http://eepurl.com/cEaBlf) for updates. Send us an [email](mailto:contact@anoma.ly) if you have any questions.
+- https://github.com/AnomalyInnovations/serverless-nodejs-starter
