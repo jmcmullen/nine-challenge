@@ -12,6 +12,10 @@ export const filterHandler = async (event, context, callback) => {
       throw new Error('Missing payload');
     }
 
+    if (!Array.isArray(data.payload)) {
+      throw new Error('Payload must be an array');
+    }
+
     return filter.run();
   } catch (error) {
     const response = {

@@ -3,20 +3,25 @@ service: nine-challenge
 plugins:
   - serverless-webpack
   - serverless-offline
+  - serverless-domain-manager
 
 custom:
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
+  customDomain:
+    domainName: 9.jays.works
+    certificateName: '*.jays.works'
+    createRoute53Record: true
+    stage: dev
 
 provider:
   name: aws
   runtime: nodejs8.10
-  stage: dev
-  region: ap-southeast-2
+  region: us-east-1
 
 functions:
-  hello:
+  filter:
     handler: src/handler.filterHandler
     events:
       - http:

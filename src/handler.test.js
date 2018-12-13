@@ -38,3 +38,14 @@ describe('sending a request with invalid json', () => {
     await handler.filterHandler('{ $in"valid:_ "\n }', {}, callback);
   });
 });
+
+describe('sending a request with invalid payload', () => {
+  it('should return a 400 status code', async () => {
+    const callback = (error, response) => {
+      expect(response.statusCode).toEqual(400);
+    };
+
+    data.body = JSON.stringify({ payload: 'lol' });
+    await handler.filterHandler(data, {}, callback);
+  });
+});
